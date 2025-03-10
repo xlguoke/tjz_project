@@ -9,4 +9,7 @@ export default defineConfig({
     presetUno(),
     presetRemToPx() as any,
   ],
+  shortcuts: {
+    'cell-item': 'px-3 py-4 bg-white flex gap-2 justify-between items-center active:bg-gray-50',
+  },
 })
