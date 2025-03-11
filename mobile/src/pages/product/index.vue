@@ -1,5 +1,7 @@
 <script setup lang='ts'>
 import Product from '../components/Product.vue'
+import DataList from '@/components/DataList.vue'
+import { useDatas } from '@/composables/useDatas'
 
 const productTypeDatas = ref([
   { text: '全部类型', value: '0' },
@@ -30,6 +32,39 @@ const items = [
   { text: '福建', disabled: true },
 ]
 
+const {
+  page,
+  size,
+  dataSource,
+  total,
+  loading,
+  onLoad,
+  onRefresh,
+  onChange,
+} = useDatas<any>({
+  dataApi: getDataApi,
+  responseDataTransform() {
+    return {
+      rows: [{}, {}, {}, {}, {}],
+      count: 5,
+    }
+  },
+})
+
+async function getDataApi(): Promise<any> {
+  const param = {
+    page: page.value,
+    size
+  }
+  return {
+    param,
+    data: {
+      rows: [],
+      count: 0,
+    },
+  }
+}
+
 definePage({
   meta: {
     title: '产品',
@@ -52,9 +87,18 @@ definePage({
       </van-dropdown-menu>
     </div>
     <div class="p-3 flex-1 h-0 overflow-auto">
-      <template v-for="i in 15" :key="i">
-        <Product class="mb-3" />
-      </template>
+      <DataList
+        :datas="dataSource"
+        :total="total"
+        :loading="loading"
+        @change="onChange"
+        @load="onLoad"
+        @refresh="onRefresh"
+      >
+        <template #dataItem="{ item }">
+          <Product class="mb-3" :data="item" />
+        </template>
+      </DataList>
     </div>
   </div>
 </template>

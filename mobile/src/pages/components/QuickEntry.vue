@@ -29,7 +29,11 @@ const entryList = [
 
 <template>
   <ul class="bg-white rounded-md flex flex-wrap">
-    <li v-for="item in entryList" :key="item.path" class="w-[50%] py-3 pl-5 box-border custom-border">
+    <li
+      v-for="item in entryList"
+      :key="item.path"
+      class="w-[50%] py-3 pl-5 box-border custom-border active:bg-gray-50"
+    >
       <router-link :to="item.path" class="flex gap-3 text-black">
         <img src="" class="mt-2 w-6 h-6">
         <div>

@@ -1,10 +1,12 @@
 <script setup lang='ts'>
-
+const dfUser = new URL('@/assets/images/user.svg', import.meta.url).href
 </script>
 
 <template>
   <div class="p-3 bg-white rounded-md flex gap-4 items-center">
-    <img src="" class="w-15 h-15 rounded-full bg-gray-1">
+    <div class="w-15 h-15 rounded-full overflow-hidden">
+      <img :src="dfUser" class="block w-full h-full">
+    </div>
     <div class="flex-1">
       <div class="flex justify-between">
         <h3 class="my-2">
