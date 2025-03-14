@@ -8,6 +8,7 @@ declare const __PROD__: boolean
  */
 declare const __BASE_API__: string
 declare const __PLATFORM_NAME__: string
+declare const __PROJECT_NAME__: string
 
 declare module 'lunar-javascript';
 declare module 'qs'

@@ -1,9 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { routes } from 'vue-router/auto-routes'
+import NProgress from 'nprogress'
 import { storeToRefs } from 'pinia'
 import permissionStore from './stores/permissions'
+import 'nprogress/nprogress.css'
 
 const whiteList = ['/login', '/admin/login']
+
+NProgress.configure({
+  showSpinner: false
+})
 
 export function createTypedRouter() {
   const router = createRouter({
@@ -11,7 +17,8 @@ export function createTypedRouter() {
     routes,
   })
 
-  // router.beforeEach(async (to) => {
+  router.beforeEach(async (to) => {
+    NProgress.start()
   //   // 前往非登录页和非白名单页面，进行权限拦截
   //   if (
   //     !whiteList.includes(to.path)
@@ -33,7 +40,11 @@ export function createTypedRouter() {
   //         return '/noaccess'
   //     }
   //   }
-  // })
+  })
+
+  router.afterEach(() => {
+    NProgress.done()
+  })
 
   return router
 }

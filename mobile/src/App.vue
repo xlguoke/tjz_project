@@ -27,6 +27,9 @@ const active = ref(route.path)
 const showTabBar = computed(() => {
   return tabBar.some(item => item.path === route.path)
 })
+const noLayout = computed(() => {
+  return ['/login', '/register', '/forget-password'].includes(route.path)
+})
 
 function onClickLeft() {
   history.back()
@@ -51,27 +54,32 @@ useHead({
 
 <template>
   <div class="h-screen bg-gray-1">
-    <van-nav-bar
-      :title="route.meta.title"
-      left-arrow
-      @click-left="onClickLeft"
-    />
-
-    <div :class="`overflow-auto ${showTabBar ? 'warpper-tabbar' : 'warpper'}`">
+    <template v-if="noLayout">
       <RouterView />
-    </div>
+    </template>
+    <template v-else>
+      <van-nav-bar
+        :title="route.meta.title"
+        :left-arrow="!showTabBar"
+        @click-left="onClickLeft"
+      />
 
-    <van-tabbar v-if="showTabBar" v-model="active">
-      <van-tabbar-item
-        v-for="item in tabBar"
-        :key="item.path"
-        :name="item.path"
-        :icon="item.icon"
-        :to="item.path"
-      >
-        {{ item.text }}
-      </van-tabbar-item>
-    </van-tabbar>
+      <div :class="`overflow-auto ${showTabBar ? 'warpper-tabbar' : 'warpper'}`">
+        <RouterView />
+      </div>
+
+      <van-tabbar v-if="showTabBar" v-model="active">
+        <van-tabbar-item
+          v-for="item in tabBar"
+          :key="item.path"
+          :name="item.path"
+          :icon="item.icon"
+          :to="item.path"
+        >
+          {{ item.text }}
+        </van-tabbar-item>
+      </van-tabbar>
+    </template>
   </div>
 </template>
 

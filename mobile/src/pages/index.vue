@@ -10,6 +10,8 @@ definePage({
     title: '首页',
   },
 })
+
+const productDatas = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }]
 </script>
 
 <template>
@@ -32,8 +34,8 @@ definePage({
       </router-link>
     </div>
 
-    <template v-for="i in 5" :key="i">
-      <Product class="mb-3" />
+    <template v-for="d in productDatas" :key="d.id">
+      <Product class="mb-3" :data="d" />
     </template>
   </div>
 </template>

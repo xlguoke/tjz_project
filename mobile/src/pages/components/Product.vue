@@ -1,5 +1,16 @@
 <script setup lang='ts'>
+interface Props {
+  data: any
+}
+const props = defineProps<Props>()
 
+const router = useRouter()
+
+function goDetail() {
+  router.push({
+    path: `/product/${props.data.id}`,
+  })
+}
 </script>
 
 <template>
@@ -10,7 +21,7 @@
         <h4 class="my-0 text-[16px]">
           产品名称
         </h4>
-        <van-button size="small" class="text-sm" type="primary">
+        <van-button size="small" class="text-sm" type="primary" @click="goDetail">
           立即申请
         </van-button>
       </div>

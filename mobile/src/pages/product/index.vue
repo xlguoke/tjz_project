@@ -45,7 +45,7 @@ const {
   dataApi: getDataApi,
   responseDataTransform() {
     return {
-      rows: [{}, {}, {}, {}, {}],
+      rows: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }],
       count: 5,
     }
   },
@@ -54,7 +54,7 @@ const {
 async function getDataApi(): Promise<any> {
   const param = {
     page: page.value,
-    size
+    size,
   }
   return {
     param,
